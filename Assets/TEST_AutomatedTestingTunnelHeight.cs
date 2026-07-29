@@ -69,7 +69,7 @@ public class TEST_AutomatedTestingTunnelHeight : MonoBehaviour
         startRecording = false;
         PlayerMovement.Player.SetPosition(startPos);
         PlayerMovement.Player.ForceStateChange(PlayerMovement.PlayerState.Grounded);
-        SonicCamera.instance.WarpCam(startPos);
+        PlayerCamera.instance.WarpCam(startPos);
         if(overrideSpeed != GroundSpeedOverride.Zero)
         {
             PlayerMovementStats ms = PlayerMovement.Player.movementStats;

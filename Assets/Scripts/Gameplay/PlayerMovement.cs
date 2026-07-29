@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using static PlayerSensors;
+using static UnitConversion;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerTrail trail;
     AudioSource audioSource;
     [SerializeField] bool useSubStepsPastSpeedLimit = false;
     public static PlayerMovement Player;
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float Height {get{return curHeight;}}
     public float Width {get{return curWidth;}}
     Vector2 DEBUG_resetPos;
-    public SonicCharacter sonicCharacter;
+    public CharacterData characterData;
     [HideInInspector] public PlayerMovementStats movementStats;
     [HideInInspector] public PlayerSensors sensors;
     public bool isBall = false;
@@ -86,9 +86,9 @@ public class PlayerMovement : MonoBehaviour
         Player = this;
         sensors = new(this);
 
-        if(sonicCharacter.playerMovementStats != null)
+        if(characterData.playerMovementStats != null)
         {
-            movementStats = sonicCharacter.playerMovementStats;
+            movementStats = characterData.playerMovementStats;
         }
         else movementStats = ScriptableObject.CreateInstance<PlayerMovementStats>();
 
@@ -101,16 +101,14 @@ public class PlayerMovement : MonoBehaviour
         Time.fixedDeltaTime = 1f/60f;        
         DEBUG_resetPos = transform.position;
         position = transform.position;
-
-        trail = new(Color.blue, this);
     }
 
     void Start()
     {
         equippedAbilities.Clear();
-        if(sonicCharacter.specialAbilities.Count > 0)
+        if(characterData.specialAbilities.Count > 0)
         {
-            foreach(ScriptableObject ability in sonicCharacter.specialAbilities)
+            foreach(ScriptableObject ability in characterData.specialAbilities)
             {
                 if(ability is IAbility)
                 {
@@ -323,10 +321,6 @@ public class PlayerMovement : MonoBehaviour
             //update ball mode. Should only ever be a ball on the ground in a special state or if rolling
             ExitBallState();
 
-
-
-            // -1 - check for special animations
-
             // -1 - check for special state
             GroundedUpdateDescriptiveState();
 
@@ -370,53 +364,19 @@ public class PlayerMovement : MonoBehaviour
         GroundedPushCollision();
         
         // 8 - apply velocity to position
-            //If the player is moving faster than the speed cap in the original games, the player is moved in small incremements, or sub-steps.
-            //The player is snapped to the ground and the velocity direction is recalculated each sub-step to ensure the player sticks to the ground.
-        
-        // the originals capped the players speed so he could never move more than 16px in a single frame, and at 16ppu, that works out to exactly one unity unit. 16f/16f left in for readability.
-        // Moving at one unity unit, or 16 px per substep could still be considered "less safe" than moving at a more granular amount, say 1 px or 1/16th of a unit per substep, BUT the originals never move the player more than- 
-        // 16 pixels per frame, so doing it this way maintains accuracy. HOWEVER, the originals only cap his speed to 16 px on the X axis, not ground speed and not the Y axis, just his velocity on the X axis. 
-        // capping groundspeed and both axes maintains a sense of correctness, which is why I'm deviating from the originals in that sense.
-        // PS- I tried only capping the velocity on the x axis (not ground speed or vel on y axis like the originals) and it looks very strange doing so when the player suddenly slows down when moving horizontally but not vertically.
-        float originalSpeedCap = 16f/16f; 
-        if(groundSpeed > originalSpeedCap && useSubStepsPastSpeedLimit) 
-        {
-            float stepAmount = originalSpeedCap * 0.9f;
-            float amountToSubMove = groundSpeed;
-            float amountMoved = 0f;
-            while(amountMoved < amountToSubMove)
-            {
-                float step = Mathf.Min(stepAmount, amountToSubMove - amountMoved);
-                GroundedSubStep(step);
-
-                // after we perform the substep movement, we compare that we won't overshoot the player in the next step. 
-                // if we will, we cap the step amount so we only move the remaining distance.
-                amountMoved += step;
-
-                if(!isGrounded())
-                {
-                    // Debug.Log("cancel early, left ground");
-                    break;
-                }
-            }
-            Debug.Log("gsp: " + groundSpeed + ", amount sub Moved: " + amountMoved + ", moved correct dist?: " + (amountMoved == groundSpeed));
-        }
-        else //if player is not moving faster than the original speed cap, then we move the player normally.
-        {
             position += velocity;
 
-            // 10 - ground sensor collision        
+            // 9 - ground sensor collision check
             if(GroundCollision())
             {
+                //10 - snap to floor on collision
                 SnapToFloor(PrimaryGroundSensor);
             }
-        }
-
-
+        
         // 11 - check for slipping/falling when ground speed is too low on walls and ceilings
         if(controlLock == 0 && activeAbility == null)
         {
-            if(Mathf.Abs(groundSpeed) < 2.5f/16f && (PrimaryGroundSensor.angle >= 35f && PrimaryGroundSensor.angle <= 326f) && false)
+            if(Mathf.Abs(groundSpeed) < 2.5f/PIXELS_PER_UNIT && (PrimaryGroundSensor.angle >= 35f && PrimaryGroundSensor.angle <= 326f) && false)
             {
 
                 controlLock = 30;
@@ -428,10 +388,10 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    groundSpeed += (PrimaryGroundSensor.angle > 180f ? 0.5f : -0.5f) / 16f;
+                    groundSpeed += (PrimaryGroundSensor.angle > 180f ? 0.5f : -0.5f) / PIXELS_PER_UNIT;
                 }
             }
-            else if(Mathf.Abs(groundSpeed) < 2.5f/16f && (PrimaryGroundSensor.angle >= 46f && PrimaryGroundSensor.angle <= 315f))
+            else if(Mathf.Abs(groundSpeed) < 2.5f/PIXELS_PER_UNIT && (PrimaryGroundSensor.angle >= 46f && PrimaryGroundSensor.angle <= 315f))
             {
                 controlLock = 30;
                 curPlayerState = PlayerState.Airborne;
@@ -448,25 +408,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void GroundedSubStep(float amountToMove, bool DEBUG_freezeTimeOnFailure = false)
+    void GroundedSubStep(float amountToMove)
     {
         //recalculate the velocity direction every step, so we always move around the slope.
         velocity = GroundSpeedToVelocity(true, true);
         position += velocity.normalized * amountToMove;
 
-        float snapLimit = 14f/16f;
-        // Debug.DrawRay(groundSensorHit.point, -groundSensorHit.castDirection * snapLimit, Color.blue);
-
         if(GroundCollision())
         {
             SnapToFloor(PrimaryGroundSensor);
-        }
-        else if(DEBUG_freezeTimeOnFailure)
-        {
-            //Freeze when failing to snap during substeps, debugging feature
-            Debug.DrawRay(PrimaryGroundSensor.point, -PrimaryGroundSensor.castDirection * (Mathf.Abs(PrimaryGroundSensor.distance) - snapLimit), Color.red );
-            Debug.Log("Distance check failed. distance at failure: " + PrimaryGroundSensor.distance + ", abs dist - limit: " + (Mathf.Abs(PrimaryGroundSensor.distance) - snapLimit) + " gsp: " + groundSpeed + " velocity: " + velocity);
-            timeScale = 0;
         }
     }
     
@@ -538,13 +488,13 @@ public class PlayerMovement : MonoBehaviour
         if(wantsJump && canJump)
         {
             SensorHit ceilingSensor = sensors.CastCeilingSensors().primarySensor;
-            if(ceilingSensor.distance < 6f/16f && ceilingSensor.hit) return false; //check if the player is too close to the ceiling to jump.
+            if(ceilingSensor.distance < 6f/PIXELS_PER_UNIT && ceilingSensor.hit) return false; //check if the player is too close to the ceiling to jump.
 
             // update state flag
             isJumping = true;
 
             //adjust position by the difference in the current height and the height when in ball form. This snaps us to the floor when going from standing -> jumping
-            //this does nothing when rolling and jumping because we're already snapped to the floor as a ball.
+            //this does nothing when going from rolling -> jumping because we're already snapped to the floor as a ball.
             EnterBallState();
 
             //Calculate direction to apply jump force in based on whether we're using the ground normal or the ground angle.
@@ -581,7 +531,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(isJumping && !InputManager.Instance.jumpButton)
         {
-            float minJumpForce = 4f/16f;
+            float minJumpForce = 4f/PIXELS_PER_UNIT;
 
             if(velocity.y > minJumpForce && velocity.y < movementStats.jump_force)
             {
@@ -618,13 +568,9 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayerObject(Vector2 newPosition, bool useLerp = true)
     {
-        
-        bool canLerp = Time.unscaledDeltaTime < Time.fixedDeltaTime || maxFps > 60f;
-
         if(useLerp)
         {
             float alpha = Mathf.Min((Time.time - Time.fixedTime) / Time.fixedDeltaTime, 1f);
-            // float alpha = Mathf.Min(Time.deltaTime/Time.fixedDeltaTime, 1f);
             transform.position = Vector3.Lerp(previousPosition, newPosition, alpha);
         }
         else
@@ -691,7 +637,7 @@ public class PlayerMovement : MonoBehaviour
     
     void ApplyAirDrag()
     {
-        float maxAirDragSpeed = 4f/16f;
+        float maxAirDragSpeed = 4f/PIXELS_PER_UNIT;
         if(velocity.y > 0f && velocity.y < maxAirDragSpeed)
         {
             int roundedVelX = (int) (velocity.x / 0.125f);
@@ -761,11 +707,18 @@ public class PlayerMovement : MonoBehaviour
 
         SensorHit pushSensor = sensors.CastPushSensor(true);
 
+        Debug.DrawRay(pushSensor.point + Vector2.up * 2f, pushSensor.normal * pushSensor.distance, pushSensor.distance < 0f ? Color.green : Color.red);
+
+
         if(pushSensor.distance < 0f && pushSensor.hit)
         {
             groundSpeed = 0f;
-
+            Debug.Log($"velocity before: {velocity}");
+            Debug.Log($"distance: {pushSensor.distance}");
+            Debug.Log($"amount added: {pushSensor.distance * pushSensor.castDirection}");
             velocity += pushSensor.distance * pushSensor.castDirection;
+            
+            Debug.Log($"velocity after: {velocity}");
 
             if(!isBall && curPlayerState != PlayerState.Rolling)
             {
@@ -819,6 +772,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Known limitation:
+    // Two-point sensor collision can occasionally miss extremely shallow airborne slope landings.
+    // This is a consequence of matching the original games' sensor-based collision approach.
+    // Future refinement could use additional sampling or predictive collision checks.
+
     bool GroundCollision(CompetingSensors? overrideSensors = null)
     {
         bool prevGrounded = isGrounded();
@@ -831,13 +789,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else groundSensors = (CompetingSensors) overrideSensors;
 
-        //cache the winning sensor
-
         if(PrimaryGroundSensor.hit)
         {
             if(prevGrounded)
             {
-                float snapLimit = 14f/16f;
+                float snapLimit = 14f/PIXELS_PER_UNIT;
                 newGrounded = Mathf.Abs(PrimaryGroundSensor.distance) <= snapLimit;
             }
             else
@@ -848,7 +804,7 @@ public class PlayerMovement : MonoBehaviour
 
                     if(airCollisionMode == AirCollisionMode.MostlyDown) //moving mostly down
                     {
-                        float threshold = velocity.y - 8f/16f;
+                        float threshold = velocity.y - 8f/PIXELS_PER_UNIT;
                         if(groundSensors.primarySensor.distance >= threshold || groundSensors.secondarySensor.distance >= threshold)
                         {
                             newGrounded = true;
@@ -1043,9 +999,12 @@ public class PlayerMovement : MonoBehaviour
         curPlayerState = PlayerState.Rolling;
         EnterBallState();
 
+        //Little quirk of the originals- if the player somehow has zero GSP when starting a roll, his GSP is set to 2 (pixels). 
+        // This behavior is primarily observed in S Tunnels, which force a Roll regardless of current speed.
+
         if(groundSpeed == 0f)
         {
-            groundSpeed = 2f/16f;
+            groundSpeed = 2f/PIXELS_PER_UNIT;
         }
     }
 
@@ -1183,18 +1142,4 @@ public class PlayerMovement : MonoBehaviour
         audioSource.pitch = pitch;
         audioSource.PlayOneShot(clip);
     }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        // Gizmos.DrawWireSphere(position, 0.1f);
-        Gizmos.color = Color.white;
-        // Gizmos.DrawWireSphere(position.SnapToPixel(), 0.05f);
-
-        Color colliderColor = Color.blue;
-        colliderColor.a = 0.5f;
-        Gizmos.color = colliderColor;
-        Gizmos.DrawCube(position, bounds.size);
-    }
-
 }

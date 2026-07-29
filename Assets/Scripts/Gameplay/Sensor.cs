@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 using static UnitConversion;
 
 public static class Sensor
@@ -11,16 +10,16 @@ public static class Sensor
     {
         return new Vector2(Mathf.FloorToInt(vector.x), Mathf.FloorToInt(vector.y));
     }
-    public static SensorHit SensorCast_PixelSpace(Vector2 anchorPoint, Vector2 checkDirection, float checkDistance, int layerMask = ~0, bool drawDebugLines = false, Color? debugLineColor = null, bool wholePixelOnly = true)
+    public static SensorHit SensorCast_PixelSpace(Vector2 anchorPoint, Vector2 checkDirection, float checkDistance, int layerMask = ~0, bool drawDebugLines = false, Color? debugLineColor = null)
     {
         anchorPoint = ToWorldSpace(Floor(anchorPoint));
         checkDistance = ToWorldSpace(Mathf.FloorToInt(checkDistance));
 
-        SensorHit returnHit = SensorCast_WorldSpace(anchorPoint, checkDirection, checkDistance, layerMask, drawDebugLines, debugLineColor);
+        SensorHit returnHit = SensorCast_WorldSpace(anchorPoint, checkDirection, checkDistance, layerMask, drawDebugLines, debugLineColor, true);
         return returnHit.InPixelSpace();
     }
 
-    public static SensorHit SensorCast_WorldSpace(Vector2 anchorPoint, Vector2 checkDirection, float checkDistance, int layerMask = ~0, bool drawDebugLines = false, Color? debugLineColor = null)
+    public static SensorHit SensorCast_WorldSpace(Vector2 anchorPoint, Vector2 checkDirection, float checkDistance, int layerMask = ~0, bool drawDebugLines = false, Color? debugLineColor = null, bool distanceInPixels = false)
     {
         RaycastHit2D returnSensor = new RaycastHit2D();
 
@@ -28,13 +27,13 @@ public static class Sensor
         checkDirection = checkDirection.OneAxis();
         
         RaycastHit2D[] allNormalHits = Physics2D.RaycastAll(anchorPoint, checkDirection, maxDistance, layerMask);
-        RaycastHit2D normalHit = FindBestCheckCandidate(allNormalHits, checkDirection);
+        RaycastHit2D normalHit = FindBestCheckCandidate(allNormalHits, checkDirection, SensorType.Normal, distanceInPixels);
 
         RaycastHit2D[] allExtensionHits = Physics2D.RaycastAll(anchorPoint - checkDirection * maxDistance, checkDirection, maxDistance, layerMask);
-        RaycastHit2D extensionHit = FindBestCheckCandidate(allExtensionHits, checkDirection, SensorType.Extension);
+        RaycastHit2D extensionHit = FindBestCheckCandidate(allExtensionHits, checkDirection, SensorType.Extension, distanceInPixels);
         
         RaycastHit2D[] allRegressionHits = Physics2D.RaycastAll(anchorPoint, -checkDirection, maxDistance, layerMask);
-        RaycastHit2D regressionHit = FindBestCheckCandidate(allRegressionHits, checkDirection, SensorType.Regression);
+        RaycastHit2D regressionHit = FindBestCheckCandidate(allRegressionHits, checkDirection, SensorType.Regression, distanceInPixels);
 
         RaycastHit2D[] hits = {normalHit, extensionHit, regressionHit};
 
@@ -47,8 +46,15 @@ public static class Sensor
                 debugLineColor = Color.white;
             }
 
-            Debug.DrawRay(anchorPoint, -checkDirection * checkDistance, (Color)debugLineColor, Time.fixedDeltaTime);
+            Color color = (Color) debugLineColor;
+            if(returnSensor.collider == null)
+            {
+                color.a = 0.5f;
+            }
+            //Draw Sensor Line
+            Debug.DrawRay(anchorPoint, -checkDirection * checkDistance, color, Time.fixedDeltaTime);
             
+            //Draw Sensor Anchor Point (2 intersecting lines to make a + sign)
             Vector2 offset = new Vector2(checkDirection.y, checkDirection.x);   
             Debug.DrawRay(anchorPoint - offset * 0.5f * 0.1f, offset * 0.1f, Color.white);
             Debug.DrawRay(anchorPoint - checkDirection * 0.5f * 0.1f, checkDirection * 0.1f, Color.white);
@@ -101,7 +107,7 @@ public static class Sensor
         return hits[closestIndex];
     }
 
-    private static RaycastHit2D FindBestCheckCandidate(RaycastHit2D[] hits, Vector2 checkDir, SensorType sensorType = SensorType.Normal)
+    private static RaycastHit2D FindBestCheckCandidate(RaycastHit2D[] hits, Vector2 checkDir, SensorType sensorType = SensorType.Normal, bool distanceInPixels = true)
     {
         int candidateIndex = -1;
 
@@ -152,7 +158,10 @@ public static class Sensor
         {
             return new RaycastHit2D();
         }
-        hits[candidateIndex].distance = Mathf.FloorToInt(hits[candidateIndex].distance*PIXELS_PER_UNIT)/PIXELS_PER_UNIT;
+        if(distanceInPixels)
+        {
+            hits[candidateIndex].distance = Mathf.FloorToInt(hits[candidateIndex].distance*PIXELS_PER_UNIT)/PIXELS_PER_UNIT;        
+        }
         return hits[candidateIndex];
     }
 }
@@ -193,15 +202,6 @@ public class SensorHit
         distance = _distance;
         castDirection = _direction;
         hit = _collider != null;
-
-        if(_collider != null)
-        {
-            var flags = _collider.GetComponent<Utils_SpriteShapeAngleFlags>();
-            if(flags != null && flags.IsPointFlagged(_point))
-            {
-                normal = _normal.OneAxis().normalized;
-            }
-        }
     }
 
     public SensorHit InPixelSpace()

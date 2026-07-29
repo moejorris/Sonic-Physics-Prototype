@@ -11,7 +11,7 @@ public class ObjectSpawner_Coin : MonoBehaviour
             return;
         }
 
-        Marker_CoinSet[] coinSets = FindObjectsByType<Marker_CoinSet>(FindObjectsSortMode.None);
+        Marker_CoinSet[] coinSets = FindObjectsByType<Marker_CoinSet>();
 
         foreach(Marker_CoinSet coinSet in coinSets)
         {

@@ -3,9 +3,12 @@ using UnityEngine.U2D;
 
 public class Utils_SpriteShapeColliderCorrection : MonoBehaviour
 {
+
+    //Simple Utility script that corrects spline point to collider point calculation errors caused by Unity. 
+    // This ensures everything is aligned to where they should be on the grid, rather than having very small diagonals between points.
     void Awake()
     {
-        foreach(SpriteShapeController ssc in FindObjectsByType<SpriteShapeController>(FindObjectsSortMode.None))
+        foreach(SpriteShapeController ssc in FindObjectsByType<SpriteShapeController>())
         {
             EdgeCollider2D collider = ssc.GetComponent<EdgeCollider2D>();
             if(collider != null)

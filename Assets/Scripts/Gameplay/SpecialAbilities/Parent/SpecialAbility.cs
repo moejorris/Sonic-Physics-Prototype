@@ -12,7 +12,7 @@ public abstract class SpecialAbility
 
     }
     public Ability_AnimationOverride animationMode = Ability_AnimationOverride.None;
-    public SonicSprite[] animationFrames;
+    public CharacterSprite[] animationFrames;
     public enum Ability_ActivationCriteria
     {
         LookUp,

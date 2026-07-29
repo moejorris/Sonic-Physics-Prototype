@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Spindash_Data : ScriptableObject, IAbility
 {
     public InputActionReference button;
-    public SonicSprite[] animationFrames;
+    public CharacterSprite[] animationFrames;
     public AudioClip chargeSound;
     public AudioClip releaseSound;
     public GameObject dustParticlePrefab;

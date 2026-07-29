@@ -169,7 +169,7 @@ public class PlayerSensors
         float sign = Mathf.Sign(speed);
         
         Vector2 pushDir = PushDirection() * sign;
-        Vector2 origin = playerMovement.Position + pushDir * pushRadius;
+        Vector2 origin = playerMovement.Position + (pushDir * pushRadius);
         if(playerMovement.isGrounded())
         {
             if(playerMovement.PrimaryGroundSensor.angle == 0f && !playerMovement.isRolling())
@@ -188,17 +188,8 @@ public class PlayerSensors
         Color sensorEColor = Color.magenta * 0.75f + Color.white * 0.25f;
         Color sensorFColor = Color.red * 0.75f + Color.white * 0.25f;
 
-        SensorHit sensor = Sensor.SensorCast_WorldSpace(origin, pushDir, pushRadius, layerMask, true, sign > 0f ? sensorFColor : sensorEColor);
+        SensorHit sensor = Sensor.SensorCast_WorldSpace(origin, pushDir, pushRadius, layerMask, true, sign > 0f ? sensorFColor : sensorEColor, false);
         return sensor;
 
-    }
-    
-    void OnDrawGizmos()
-    {
-        if(playerMovement != null)
-        {
-
-        }
-    
     }
 }

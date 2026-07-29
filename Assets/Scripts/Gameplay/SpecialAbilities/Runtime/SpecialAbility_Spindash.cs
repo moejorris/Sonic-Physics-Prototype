@@ -50,9 +50,9 @@ public class SpecialAbility_Spindash : SpecialAbility
                 holdingReachedMaxPitch = true;
             }
 
-            if(GenesisSonicAnimator.instance != null)
+            if(GenesisSpriteAnimator.instance != null)
             {
-                GenesisSonicAnimator.instance.ResetCurrentAnimation();
+                GenesisSpriteAnimator.instance.ResetCurrentAnimation();
             }
 
 
@@ -129,7 +129,7 @@ public class SpecialAbility_Spindash : SpecialAbility
             dustPS.Play();
 
             // dustPS.transform.localScale = (playerMovement.facingRight ? 0 : -2) * Vector2.right + Vector2.one;
-            Vector2 upDir = GenesisSonicAnimator.instance.transform.up;
+            Vector2 upDir = GenesisSpriteAnimator.instance.transform.up;
             dustPS.transform.localPosition = -upDir * (playerMovement.movementStats.ballHeight /2f) ;
             dustPS.transform.up = upDir;
             if(!playerMovement.facingRight)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Player Movement Stats", menuName = "Sonic Characters/PlayerMovementStats", order = 1)]
+[CreateAssetMenu(fileName = "Player Movement Stats", menuName = "Characters/PlayerMovementStats", order = 1)]
 public class PlayerMovementStats : ScriptableObject
 {
     //size vars

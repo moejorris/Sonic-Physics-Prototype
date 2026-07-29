@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnitConversion;
 using System.Runtime.CompilerServices;
 
 public static class Vector2Extensions
@@ -91,9 +92,9 @@ public static class Vector2Extensions
         return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }
 
-    public static Vector2 SnapToPixel(this Vector2 v, float ppu = 16f)
+    public static Vector2 SnapToPixel(this Vector2 v)
     {
-        float snapTo = 1f/ppu;
+        float snapTo = 1f/PIXELS_PER_UNIT;
         float x = Mathf.Round(v.x/snapTo)*snapTo;
         float y = Mathf.Round(v.y/snapTo)*snapTo;
 
