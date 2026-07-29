@@ -1,8 +1,10 @@
-# Unity Momentum Platformer Prototype
+# Sonic Physics Prototype in Unity
 
 A Unity (C#) prototype implementing a deterministic 2D momentum-based movement system using a publicly available physics guide as a behavioral specification rather than a complete implementation blueprint.
 
 The focus of this project is **deterministic movement, slope-aware kinematic physics, readable system design, and faithful animation behavior**, with visuals serving primarily as validation tools.
+
+<img width="478" height="478" alt="physics_hero" src="https://github.com/user-attachments/assets/4d322f78-6ad1-482d-b5f6-f5471032589d" />
 
 ---
 
@@ -17,6 +19,9 @@ All simulation and gameplay code is original and written from scratch in Unity u
 
 ## Technical Highlights
 
+<img width="476" height="486" alt="physics_360_loop" src="https://github.com/user-attachments/assets/37d81215-26b1-4536-880e-9cffcdca3239" />
+
+
 - Implemented a custom kinematic character controller without relying on Unity Rigidbody physics
 - Designed a fixed-step simulation loop with frame-independent movement behavior
 - Built custom collision sensing using raycast surface queries
@@ -24,6 +29,8 @@ All simulation and gameplay code is original and written from scratch in Unity u
 - Created editor debugging tools to visualize collision data and surface normals
 
 ## Technical Challenges
+
+<img width="476" height="486" alt="physics_arbitgeo" src="https://github.com/user-attachments/assets/060a13ce-674d-426d-ac1e-12a140f9ce2d" />
 
 - Maintaining stable movement across arbitrary surface angles while preserving player-relative velocity
 - Implementing robust collision resolution without relying on Unity's built-in physics engine
@@ -38,7 +45,9 @@ All simulation and gameplay code is original and written from scratch in Unity u
 - Rendering framerate is fully decoupled from simulation
 - Movement behavior is deterministic and frame-rate independent
 - Visual interpolation is used for smooth rendering
-- Movement does **not** rely on Unity Rigidbody forces
+- Movement does **not** rely on Unity Rigidbody or Character Controller components
+
+<img width="476" height="486" alt="physics_steppedoneway" src="https://github.com/user-attachments/assets/45b8317c-bd69-454e-a24a-fe05f64d3d44" />
 
 This approach prioritizes:
 - Consistent movement behavior
@@ -82,6 +91,8 @@ This separation allows physics rules and animation intent to remain distinct whi
 ---
 
 ## Animation System
+
+<img width="476" height="486" alt="physics_animations" src="https://github.com/user-attachments/assets/b9d3981d-26f6-4317-ba45-005d925b2e82" />
 
 The animation system was implemented based on documented behavioral requirements, including:
 
@@ -151,5 +162,7 @@ Visual polish and content scope are intentionally limited to keep the focus on:
 ## Disclaimer
 
 This project is an original implementation based on publicly documented behavior described in the Sonic Physics Guide. All gameplay and simulation code was written from scratch. No original game source code was used.
+
+Copyrighted Art Assets belong to their respective owners and were purely used for demonstration purposes.
 
 ---
