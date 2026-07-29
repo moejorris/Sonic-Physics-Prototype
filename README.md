@@ -1,6 +1,6 @@
 # Sonic Physics Prototype in Unity
 
-A Unity (C#) prototype implementing a deterministic 2D momentum-based movement system using a publicly available physics guide as a behavioral specification rather than a complete implementation blueprint.
+A Unity (C#) prototype implementing a 2D momentum-based movement system using the [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide) as a technical specification rather than a complete implementation blueprint.
 
 The focus of this project is **deterministic movement, slope-aware kinematic physics, readable system design, and faithful animation behavior**, with visuals serving primarily as validation tools.
 
@@ -39,6 +39,27 @@ All simulation and gameplay code is original and written from scratch in Unity u
 
 ---
 
+## Movement Model
+
+The controller represents movement using two coordinate systems:
+
+### World Velocity
+Used for airborne movement and external forces.
+
+### Ground Relative Speed
+Used while grounded, allowing movement to follow arbitrary surfaces.
+
+Ground speed is converted into world velocity using the current surface angle:
+
+```
+velocity.x = groundSpeed * cos(surfaceAngle)
+velocity.y = groundSpeed * sin(surfaceAngle)
+```
+
+This allows the same movement rules to function across floors, walls, and ceilings.
+
+---
+
 ## Simulation Model
 
 - Physics simulation runs at a **fixed 60 ticks per second**
@@ -51,8 +72,8 @@ All simulation and gameplay code is original and written from scratch in Unity u
 
 This approach prioritizes:
 - Consistent movement behavior
-- Stable collision handling at high velocity
-- Predictable debugging and iteration
+- Predictable collision behavior during high-speed movement
+- Easy debugging and iteration
 
 ---
 
@@ -60,7 +81,7 @@ This approach prioritizes:
 
 This project intentionally favors **cohesive, readable systems** over extreme fragmentation.
 
-Rather than splitting tightly coupled movement behavior across many small scripts, responsibilities are grouped to preserve **local reasoning**—the ability to understand, debug, and modify behavior without jumping across dozens of files.
+Systems are separated by responsibility boundaries rather than arbitrary file size. Closely coupled movement logic remains together to preserve local reasoning and simplify debugging.
 
 During development, I found that maintaining clear ownership of movement responsibilities was important for debugging complex interactions between collision, physics, and animation systems. This architecture prioritizes traceable execution flow while preserving separation between major responsibilities.
 
@@ -120,9 +141,20 @@ The architecture reflects the needs of a **specialized, high-complexity movement
 
 ---
 
+## Engineering Decisions
+
+### Why a custom controller instead of Unity physics?
+
+Unity's built-in physics systems are designed around general-purpose rigid body simulation. This project required direct control over acceleration, slope interaction, and ground-relative velocity, so a custom kinematic approach was used.
+
+### Why sensor-based collision?
+
+The reference behavior relies heavily on sampling the environment rather than relying solely on physical collision responses. A sensor-driven approach allows explicit control over grounding, slope traversal, and wall/ceiling movement.
+---
+
 ## Asset & IP Notes
 
-Character visuals are temporary placeholder assets used solely for technical validation of movement and animation systems. They are not part of the original implementation and are not intended for redistribution or commercial use. The focus of this repository is the engineering behind the movement, collision, and animation systems.
+Character visuals are temporary placeholder assets used solely for technical validation of movement and animation systems. They are not intended for redistribution or commercial use. The focus of this repository is the engineering behind the movement, collision, and animation systems.
 
 ---
 
@@ -157,6 +189,13 @@ Visual polish and content scope are intentionally limited to keep the focus on:
 - Debuggability
 - Engineering decision-making
 
+---
+
+## Known Limitations
+
+- Extremely shallow airborne slope landings may occasionally fail due to the two-sensor collision model.
+- Certain high-speed edge cases can require additional collision refinement.
+- The controller prioritizes deterministic behavior and readability over reproducing every undocumented behavior of the original games.
 ---
 
 ## Disclaimer
