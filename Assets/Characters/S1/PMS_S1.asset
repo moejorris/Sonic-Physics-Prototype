@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c2ebfb832f01a4698af1662ba3bf1f, type: 3}
+  m_Name: PMS_S1
+  m_EditorClassIdentifier: 
+  standingWidth: 1.1875
+  standingHeight: 2.4375
+  ballWidth: 0.9375
+  ballHeight: 1.8125
+  pushRadius: 0.625
+  jump_force: 0.40625
+  acceleration_speed: 0.0029296875
+  decceleration_speed: 0.03125
+  friction_speed: 0.0029296875
+  roll_activation_speed: 0.03125
+  roll_friction_speed: 0.0014648438
+  roll_deceleration_speed: 0.0078125
+  top_speed: 0.375
+  dash_speed: 0.625
+  gravity_force: 0.013671875
+  air_acceleration_speed: 0.005859375
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  slope_factor_normal: 0.0078125
+  slope_factor_rollup: 0.0048828125
+  slope_factor_rolldown: 0.01953125
+  slope_factor_standing_threshold: 0.00317383
+  hurt_x_force: 0.125
+  hurt_y_force: 0.25
+  hurt_gravity_force: 0.01171875
+  max_speed_x: 1
+  max_speed_y: 100
+  max_speed_ground: 100

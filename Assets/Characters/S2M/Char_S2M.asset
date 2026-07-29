@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fbe4682fabb2e740afdd1eb34963493, type: 3}
+  m_Name: Char_S2M
+  m_EditorClassIdentifier: 
+  playerMovementStats: {fileID: 11400000, guid: e19c5f92214c7f844b04711722b44bd7, type: 2}
+  genesisAnimations: {fileID: 11400000, guid: 9a10bc695f4a25542a21524d800c552f, type: 2}
+  groundRotationStyle: 1
+  specialAbilities:
+  - {fileID: 11400000, guid: a6b19f728efc85e4198fe0a262f2cbca, type: 2}
+  - {fileID: 11400000, guid: 156d9d6cf3c217d49bbe0e30228b4df7, type: 2}
+  - {fileID: 11400000, guid: 0a1700e59cded450fbc7c32fe25f7edc, type: 2}

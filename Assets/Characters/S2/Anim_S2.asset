@@ -1,0 +1,298 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c29f86b3c0aa9d45a130ffb828e01c1, type: 3}
+  m_Name: Anim_S2
+  m_EditorClassIdentifier: 
+  idle:
+  - animName: Standing Still
+    shouldLoop: 1
+    loopTimes: 30
+    variableByGroundSpeed: 0
+    subImage_duration: 6
+    sprites:
+    - {fileID: 821611706, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites:
+    - {fileID: -1308745914, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 601976559, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 798810344, guid: deeb41860042207478f4303dfb689c81, type: 3}
+  - animName: Waiting
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 6
+    sprites:
+    - {fileID: -502779450, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Eyes Wide Open
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 30
+    sprites:
+    - {fileID: 306173077, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Tapping
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 18
+    sprites:
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Watch
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 60
+    sprites:
+    - {fileID: 269883540, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Tapping
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 18
+    sprites:
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Watch
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 60
+    sprites:
+    - {fileID: 269883540, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Tapping
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 18
+    sprites:
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 312812554, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -646587397, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Watch
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 60
+    sprites:
+    - {fileID: 269883540, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Lay Down
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 6
+    sprites:
+    - {fileID: 739428406, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  - animName: Finger Wag
+    shouldLoop: 1
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 18
+    sprites:
+    - {fileID: 1952864694, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1685071092, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  balancing:
+  - animName: Foward Balancing
+    shouldLoop: 1
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 10
+    sprites:
+    - {fileID: -1226175237, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1534793896, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 890423501, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 258722616, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites:
+    - {fileID: -365214677, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1311168836, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -904788639, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1272073040, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1909545364, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -79965194, guid: deeb41860042207478f4303dfb689c81, type: 3}
+  lookUp:
+  - animName: 
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 4
+    sprites:
+    - {fileID: 783287218, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -2017119439, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  crouch:
+  - animName: 
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 4
+    sprites:
+    - {fileID: 1523614650, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1663513281, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites:
+    - {fileID: 1523614650, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 2128950081, guid: deeb41860042207478f4303dfb689c81, type: 3}
+  walking:
+  - animName: 
+    shouldLoop: 1
+    loopTimes: 0
+    variableByGroundSpeed: 1
+    subImage_duration: 8
+    sprites:
+    - {fileID: 393416755, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -891254255, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1019460287, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1353775155, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1148703117, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1787077524, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1518981967, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 814211636, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites:
+    - {fileID: 114515192, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1857789466, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 2128944214, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1041714248, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 277197296, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -2108972455, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 2113375919, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1581605193, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1560560408, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 402098347, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -689162908, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 241522408, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1909890605, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1814736207, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 85326986, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 408746708, guid: deeb41860042207478f4303dfb689c81, type: 3}
+  running:
+  - animName: 
+    shouldLoop: 1
+    loopTimes: 0
+    variableByGroundSpeed: 1
+    subImage_duration: 8
+    sprites:
+    - {fileID: -1093430838, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -123460986, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 772315697, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -687334147, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites:
+    - {fileID: 1379267765, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1449771565, guid: deeb41860042207478f4303dfb689c81, type: 3}
+  dashing: []
+  pushing:
+  - animName: 
+    shouldLoop: 1
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 32
+    sprites:
+    - {fileID: 903151763, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -680525696, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 660889556, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1005903149, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites:
+    - {fileID: 1871453022, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 964538785, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -442080858, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1583569049, guid: deeb41860042207478f4303dfb689c81, type: 3}
+  brakingStyle: 1
+  braking:
+  - animName: 
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 8
+    sprites:
+    - {fileID: 2033925772, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1399223267, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -408502198, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  ball:
+  - animName: 
+    shouldLoop: 1
+    loopTimes: 0
+    variableByGroundSpeed: 1
+    subImage_duration: 4
+    sprites:
+    - {fileID: 496890796, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1408701081, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1401170783, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 251630403, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+    ballSprite: {fileID: -1233835159, guid: deeb41860042207478f4303dfb689c81, type: 3}
+  spindash:
+  - animName: 
+    shouldLoop: 1
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 1
+    sprites:
+    - {fileID: 1458082989, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -285585017, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1420573173, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -285585017, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 76613553, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -285585017, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -715091530, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -285585017, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -97244835, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -285585017, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  spring:
+  - animName: Spring Up
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 0
+    subImage_duration: 24
+    sprites:
+    - {fileID: -361957711, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  diagonalSpring:
+  - animName: Corkscrew
+    shouldLoop: 0
+    loopTimes: 0
+    variableByGroundSpeed: 1
+    subImage_duration: 8
+    sprites:
+    - {fileID: -1848149860, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1387848356, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1262929782, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 393051843, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1334671984, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1467474191, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -8023201, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -1040849929, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -252400666, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: 1070789819, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -47413040, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    - {fileID: -12152346, guid: deeb41860042207478f4303dfb689c81, type: 3}
+    superSprites: []
+  falling: []
