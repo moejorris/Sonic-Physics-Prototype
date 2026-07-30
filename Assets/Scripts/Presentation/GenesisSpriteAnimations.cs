@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "Character Animation", menuName = "Characters/GenesisSonicAnimations")]
+[CreateAssetMenu(fileName = "Character Animation", menuName = "Characters/Genesis Sprite Animations")]
 public class GenesisSpriteAnimations : ScriptableObject
 {
     

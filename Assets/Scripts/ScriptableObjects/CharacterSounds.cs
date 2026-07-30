@@ -4,9 +4,11 @@ using UnityEngine;
 public class CharacterSounds : ScriptableObject
 {
     public AudioClip jumpSound;
-    public AudioClip brakeSound;
     public AudioClip rollSound;
-    public AudioClip deathSound;
-    public AudioClip loseRingSound;
-    public AudioClip footStepSound;
+
+    //Cancelled feature.
+    // public AudioClip brakeSound;
+    // public AudioClip deathSound;
+    // public AudioClip loseRingSound;
+    // public AudioClip[] footStepSounds;
 }

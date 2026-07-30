@@ -15,4 +15,5 @@ public class CharacterData : ScriptableObject
     public GroundRotationStyle groundRotationStyle = GroundRotationStyle.Genesis;
 
     public List<ScriptableObject> specialAbilities = new List<ScriptableObject>();
+    public CharacterSounds sfx;
 }

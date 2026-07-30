@@ -17,3 +17,4 @@ MonoBehaviour:
   groundRotationStyle: 1
   specialAbilities:
   - {fileID: 11400000, guid: a180eb37fd2274e0b8f30735f8125058, type: 2}
+  sfx: {fileID: 11400000, guid: 47e73d1f1902648cd9256f97794710f9, type: 2}
