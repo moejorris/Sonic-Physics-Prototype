@@ -1145,6 +1145,7 @@ public class PlayerMovement : MonoBehaviour
         if(audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.volume = 0.5f;
         }
         audioSource.pitch = pitch;
         audioSource.PlayOneShot(clip);
