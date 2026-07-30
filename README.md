@@ -25,6 +25,8 @@ Numerous edge cases—particularly around collision resolution, state transition
 
 All simulation and gameplay code is original and written from scratch in Unity using C#.
 
+This repository is a curated showcase of an earlier project, refactored, polished, and streamlined into a focused portfolio piece.
+
 ## Technical Highlights
 
 <img width="476" height="486" alt="physics_360_loop" src="https://github.com/user-attachments/assets/37d81215-26b1-4536-880e-9cffcdca3239" />
