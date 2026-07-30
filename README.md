@@ -8,6 +8,14 @@ The focus of this project is **deterministic movement, slope-aware kinematic phy
 
 ---
 
+## Web Build
+
+You can play the demo on [Unity Play](https://play.unity.com/en/games/ee2f8051-b255-4582-96fc-4667fd9b665d/sonic-physics-prototype)
+
+Controls listed in the description.
+
+---
+
 ## Project Overview
 
 This project explores how to implement high-speed, ground-relative movement that remains stable across slopes, walls, and ceilings.
