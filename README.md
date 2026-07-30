@@ -160,6 +160,7 @@ Unity's built-in physics systems are designed around general-purpose rigid body 
 ### Why sensor-based collision?
 
 The reference behavior relies heavily on sampling the environment rather than relying solely on physical collision responses. A sensor-driven approach allows explicit control over grounding, slope traversal, and wall/ceiling movement.
+
 ---
 
 ## Asset & IP Notes
